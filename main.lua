@@ -11,6 +11,8 @@ local BASE_Y = 0.75
 for _, gui in ipairs(game.CoreGui:GetChildren()) do
     if gui:IsA("ScreenGui") and gui.Name == "Autoclicker" then
         gui:Destroy()
+        autoClickEnabled = false
+        shiftPressed = false
     end
 end
 
@@ -177,7 +179,7 @@ end)
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 MainFrame.Position = UDim2.new(0.3, 0, 0.3, 0)
-MainFrame.Size = UDim2.new(0, 250, 0, 200)
+MainFrame.Size = UDim2.new(0, 375, 0, 300)
 MainFrame.Visible = false
 MainFrame.Active = true
 MainFrame.Draggable = true
@@ -270,10 +272,14 @@ end)
 ToggleButton.MouseButton1Click:Connect(function()
     autoClickEnabled = not autoClickEnabled
     ToggleButton.Text = autoClickEnabled and "Autoclick: ON" or "Autoclick: OFF"
+    if autoClickEnabled then
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
+    else
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    end
 end)
 
 player.CharacterAdded:Connect(function()
     autoClickEnabled = true
 end)
-
-createNotification("Script Loaded", "Made by Felipe, Modded by Hime!", 5)
+createNotification("Script Loaded", "Made by Felipe, Modded by Hime!", 5
