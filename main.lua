@@ -11,8 +11,6 @@ local BASE_Y = 0.75
 for _, gui in ipairs(game.CoreGui:GetChildren()) do
     if gui:IsA("ScreenGui") and gui.Name == "Autoclicker" then
         gui:Destroy()
-        autoClickEnabled = false
-        shiftPressed = false
     end
 end
 
