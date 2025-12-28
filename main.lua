@@ -2,9 +2,17 @@ local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
+local autoClickSpeed = 1 / 50
+local autoClickEnabled = true
+local shiftPressed = false
+local notifications = {}
+local BASE_Y = 0.75
+
 for _, gui in ipairs(game.CoreGui:GetChildren()) do
     if gui:IsA("ScreenGui") and gui.Name == "Autoclicker" then
         gui:Destroy()
+        autoClickEnabled = false
+        shiftPressed = false
     end
 end
 
@@ -22,12 +30,6 @@ local SpeedLabel = Instance.new("TextLabel")
 local ToggleButton = Instance.new("TextButton")
 local UICornerToggle = Instance.new("UICorner")
 local VersionLabel = Instance.new("TextLabel")
-
-local autoClickSpeed = 1 / 50
-local autoClickEnabled = true
-local shiftPressed = false
-local notifications = {}
-local BASE_Y = 0.75
 
 task.spawn(function()
     task.wait(0.5)
@@ -201,6 +203,7 @@ TitleLabel.Parent = MainFrame
 TitleLabel.BackgroundTransparency = 1
 TitleLabel.Size = UDim2.new(0, 200, 0, 30)
 TitleLabel.Font = Enum.Font.Arcade
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TitleLabel.Text = "Settings"
 TitleLabel.TextScaled = true
 
@@ -252,6 +255,7 @@ SpeedLabel.BackgroundTransparency = 1
 SpeedLabel.Position = UDim2.new(0.1, 0, 0.89, 0)
 SpeedLabel.Size = UDim2.new(0, 200, 0, 20)
 SpeedLabel.Font = Enum.Font.Arcade
+SpeedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 SpeedLabel.Text = "Current speed: 50"
 SpeedLabel.TextScaled = true
 
