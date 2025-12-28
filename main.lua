@@ -2,6 +2,12 @@ local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
+for _, gui in ipairs(game.CoreGui:GetChildren()) do
+    if gui:IsA("ScreenGui") and gui.Name == "Autoclicker" then
+        gui:Destroy()
+    end
+end
+
 local ScreenGui = Instance.new("ScreenGui")
 local OpenButton = Instance.new("TextButton")
 local MainFrame = Instance.new("Frame")
@@ -268,11 +274,4 @@ player.CharacterAdded:Connect(function()
     autoClickEnabled = true
 end)
 
-createNotification("Script Loaded", "Autoclicker v1.0.1 initialized.", 5)
-
-for _, gui in ipairs(game.CoreGui:GetChildren()) do
-    if gui:IsA("ScreenGui") and gui.Name == "Autoclicker" then
-        gui:Destroy()
-        createNotification("Conflict Detected", "Another Autoclicker GUI was found and removed.", 5)
-    end
-end
+createNotification("Script Loaded", "Made by Felipe, Modded by Hime!", 5)
