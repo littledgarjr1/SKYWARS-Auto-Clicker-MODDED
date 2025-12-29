@@ -69,10 +69,11 @@ end
 
 local function updateNotificationPositions()
     for i, notif in ipairs(notifications) do
+        local targetPos = UDim2.new(1, -280, BASE_Y - ((i - 1) * 0.12), 0)
         TweenService:Create(
             notif,
             TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            { Position = UDim2.new(1, -280, BASE_Y - ((i - 1) * 0.12), 0) }
+            { Position = targetPos }
         ):Play()
     end
 end
@@ -83,7 +84,7 @@ local function createNotification(title, text, duration)
     local notif = Instance.new("Frame")
     notif.Parent = ScreenGui
     notif.Size = UDim2.new(0, 260, 0, 80)
-    notif.Position = UDim2.new(1, 20, BASE_Y, 0)
+    notif.Position = UDim2.new(1, 20, BASE_Y, 0) -- start offscreen
     notif.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     notif.ZIndex = 20
 
@@ -112,14 +113,11 @@ local function createNotification(title, text, duration)
     body.TextXAlignment = Enum.TextXAlignment.Left
 
     table.insert(notifications, notif)
+
+    -- move everything into correct positions at once
     updateNotificationPositions()
 
-    TweenService:Create(
-        notif,
-        TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
-        { Position = UDim2.new(1, -280, notif.Position.Y.Scale, 0) }
-    ):Play()
-
+    -- remove after duration
     task.delay(duration, function()
         local out = TweenService:Create(
             notif,
