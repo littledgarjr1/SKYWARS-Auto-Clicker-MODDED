@@ -1,33 +1,16 @@
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
 
+local player = Players.LocalPlayer
 local autoClickSpeed = 1 / 50
 local autoClickEnabled = true
 local shiftPressed = false
 local notifications = {}
 local BASE_Y = 0.75
-
-for _, gui in ipairs(game.CoreGui:GetChildren()) do
-    if gui:IsA("ScreenGui") and gui.Name == "Autoclicker" then
-        gui:Destroy()
-    end
-end
+local Keybind = Enum.KeyCode.Q
 
 local ScreenGui = Instance.new("ScreenGui")
-local OpenButton = Instance.new("TextButton")
-local MainFrame = Instance.new("Frame")
-local UICornerFrame = Instance.new("UICorner")
-local CloseButton = Instance.new("TextButton")
-local SpeedBox = Instance.new("TextBox")
-local UICornerSpeedBox = Instance.new("UICorner")
-local ApplyButton = Instance.new("TextButton")
-local UICornerApplyButton = Instance.new("UICorner")
-local TitleLabel = Instance.new("TextLabel")
-local SpeedLabel = Instance.new("TextLabel")
-local ToggleButton = Instance.new("TextButton")
-local UICornerToggle = Instance.new("UICorner")
-local VersionLabel = Instance.new("TextLabel")
 
 task.spawn(function()
     task.wait(0.5)
@@ -158,6 +141,35 @@ local function createNotification(title, text, duration)
     end)
 end
 
+for _, gui in ipairs(game.CoreGui:GetChildren()) do
+    if gui ~= ScreenGui and gui:IsA("ScreenGui") and gui.Name == "Autoclicker" then
+        gui:Destroy()
+        createNotification("Instance Deleted", "Found another Autoclicker instance and deleted it. Your auto clicker may be faster tho.", 5)
+    end
+end
+
+local OpenButton = Instance.new("TextButton")
+local MainFrame = Instance.new("Frame")
+local UICornerFrame = Instance.new("UICorner")
+local CloseButton = Instance.new("TextButton")
+local SpeedBox = Instance.new("TextBox")
+local UICornerSpeedBox = Instance.new("UICorner")
+local ApplyButton = Instance.new("TextButton")
+local UICornerApplyButton = Instance.new("UICorner")
+local TitleLabel = Instance.new("TextLabel")
+local SpeedLabel = Instance.new("TextLabel")
+local ToggleButton = Instance.new("TextButton")
+local UICornerToggle = Instance.new("UICorner")
+local VersionLabel = Instance.new("TextLabel")
+local KeybindButton = Instance.new("TextButton")
+local UICornerKeybind = Instance.new("UICorner")
+local KeybindFrame = Instance.new("Frame")
+local UICornerKeybindFrame = Instance.new("UICorner")
+local KeybindClose = Instance.new("TextButton")
+local UICornerKeybindClose = Instance.new("UICorner")
+local KeybindFrameButton = Instance.new("TextButton")
+local UICornerKeybindFrameButton = Instance.new("UICorner")
+
 ScreenGui.Parent = game.CoreGui
 ScreenGui.Name = "Autoclicker"
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -207,7 +219,7 @@ TitleLabel.TextScaled = true
 
 VersionLabel.Parent = MainFrame
 VersionLabel.BackgroundTransparency = 1
-VersionLabel.Position = UDim2.new(0.6, 0, 0, 0)
+VersionLabel.Position = UDim2.new(0.45, 0, 0, 0)
 VersionLabel.Size = UDim2.new(0.4, 0, 0, 30)
 VersionLabel.Font = Enum.Font.Arcade
 VersionLabel.Text = "v1.0.1"
@@ -216,6 +228,7 @@ VersionLabel.TextXAlignment = Enum.TextXAlignment.Right
 startRainbowText(VersionLabel, 0.5)
 
 SpeedBox.Parent = MainFrame
+SpeedBox.ClearTextOnFocus = false
 SpeedBox.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 SpeedBox.Position = UDim2.new(0.1, 0, 0.22, 0)
 SpeedBox.Size = UDim2.new(0, 200, 0, 30)
@@ -257,6 +270,53 @@ SpeedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 SpeedLabel.Text = "Current speed: 50"
 SpeedLabel.TextScaled = true
 
+KeybindButton.Parent = MainFrame
+KeybindButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
+KeybindButton.Position = UDim2.new(0.65, 0, 0.22, 0)
+KeybindButton.Size = UDim2.new(0, 100, 0, 30)
+KeybindButton.Font = Enum.Font.Arcade
+KeybindButton.Text = "Keybind: Q"
+KeybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeybindButton.TextScaled = true
+KeybindButton.Visible = UserInputService.KeyboardEnabled == true
+UICornerKeybind.Parent = KeybindButton
+UICornerKeybind.CornerRadius = UDim.new(0, 8)
+
+KeybindFrame.Parent = MainFrame
+KeybindFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+KeybindFrame.Position = UDim2.new(0.65, 0, 0.45, 0)
+KeybindFrame.Size = UDim2.new(0, 100, 0, 30)
+KeybindFrame.Visible = false
+KeybindFrame.Active = true
+KeybindFrame.Draggable = true
+UICornerKeybindFrame.Parent = KeybindFrame
+UICornerKeybindFrame.CornerRadius = UDim.new(0, 8)
+
+KeybindClose.Parent = KeybindFrame
+KeybindClose.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+KeybindClose.Position = UDim2.new(0.75, 0, 0, 0)
+KeybindClose.Size = UDim2.new(0, 25, 0, 0, 25)
+KeybindClose.Font = Enum.Font.Arcade
+KeybindClose.Text = "X"
+KeybindClose.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeybindClose.TextScaled = true
+KeybindClose.MouseButton1Click:Connect(function()
+    KeybindFrame.Visible = false
+end)
+UICornerKeybindClose.Parent = KeybindClose
+UICornerKeybindClose.CornerRadius = UDim.new(0, 8)
+
+KeybindFrameButton.Parent = KeybindFrame
+KeybindFrameButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+KeybindFrameButton.Position = UDim2.new(0, 0, 0, 0)
+KeybindFrameButton.Size = UDim2.new(0, 100, 0, 30)
+KeybindFrameButton.Font = Enum.Font.Arcade
+KeybindFrameButton.Text = "Q"
+KeybindFrameButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeybindFrameButton.TextScaled = true
+UICornerKeybindFrameButton.Parent = KeybindFrameButton
+UICornerKeybindFrameButton.CornerRadius = UDim.new(0, 8)
+
 task.spawn(autoClickLoop)
 
 ApplyButton.MouseButton1Click:Connect(function()
@@ -273,7 +333,37 @@ ToggleButton.MouseButton1Click:Connect(function()
     if autoClickEnabled then
         ToggleButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
     else
-        ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        ToggleButton.BackgroundColor3 = Color3.fromRGB(208, 0, 0)
+    end
+end)
+KeybindButton.MouseButton1Click:Connect(function()
+    KeybindFrame.Visible = true
+end)
+
+KeybindFrameButton.MouseButton1Click:Connect(function()
+    KeybindFrameButton.Text = "Press a Key"
+    local inputEvent
+    inputEvent = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if not gameProcessed and input.UserInputType == Enum.UserInputType.Keyboard then
+            Keybind = input.KeyCode
+            KeybindFrameButton.Text = Keybind.Name
+            KeybindButton.Text = "Keybind: " .. Keybind.Name
+            Keybind = input.KeyCode
+            KeybindFrameButton.Text = Keybind.Name
+            KeybindButton.Text = "Keybind: " .. Keybind.Name
+            inputEvent:Disconnect()
+        end
+    end)
+end)
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.UserInputType ~= Enum.UserInputType.Keyboard then return end
+
+    if input.KeyCode == Keybind then
+        autoClickEnabled = not autoClickEnabled
+        ToggleButton.Text = autoClickEnabled and "Autoclick: ON" or "Autoclick: OFF"
+        ToggleButton.BackgroundColor3 = autoClickEnabled and Color3.fromRGB(70, 130, 180) or Color3.fromRGB(208, 0, 0)
     end
 end)
 
@@ -282,3 +372,4 @@ player.CharacterAdded:Connect(function()
 end)
 
 createNotification("Script Loaded", "Made by Felipe, Modded by Hime!", 5)
+createNotification("Tips", "Speed 50 is best for not getting detected, 100 for tryharding.", 5.2)
