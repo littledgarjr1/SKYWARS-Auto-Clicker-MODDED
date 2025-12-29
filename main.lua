@@ -220,7 +220,7 @@ VersionLabel.BackgroundTransparency = 1
 VersionLabel.Position = UDim2.new(0.45, 0, 0, 0)
 VersionLabel.Size = UDim2.new(0.4, 0, 0, 30)
 VersionLabel.Font = Enum.Font.Arcade
-VersionLabel.Text = "v1.0.1"
+VersionLabel.Text = "v1.0.2"
 VersionLabel.TextScaled = true
 VersionLabel.TextXAlignment = Enum.TextXAlignment.Right
 startRainbowText(VersionLabel, 0.5)
@@ -283,7 +283,7 @@ UICornerKeybind.CornerRadius = UDim.new(0, 8)
 KeybindFrame.Parent = MainFrame
 KeybindFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 KeybindFrame.Position = UDim2.new(0.65, 0, 0.45, 0)
-KeybindFrame.Size = UDim2.new(0, 100, 0, 30)
+KeybindFrame.Size = UDim2.new(0, 195, 0, 60)
 KeybindFrame.Visible = false
 KeybindFrame.Active = true
 KeybindFrame.Draggable = true
@@ -293,7 +293,7 @@ UICornerKeybindFrame.CornerRadius = UDim.new(0, 8)
 KeybindClose.Parent = KeybindFrame
 KeybindClose.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 KeybindClose.Position = UDim2.new(0.75, 0, 0, 0)
-KeybindClose.Size = UDim2.new(0, 25, 0, 0, 25)
+KeybindClose.Size = UDim2.new(0, 25, 0, 25)
 KeybindClose.Font = Enum.Font.Arcade
 KeybindClose.Text = "X"
 KeybindClose.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -305,8 +305,9 @@ UICornerKeybindClose.Parent = KeybindClose
 UICornerKeybindClose.CornerRadius = UDim.new(0, 8)
 
 KeybindFrameButton.Parent = KeybindFrame
+KeybindFrameButton.AnchorPoint = Vector2.new(0.5, 0.5)
 KeybindFrameButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-KeybindFrameButton.Position = UDim2.new(0, 0, 0, 0)
+KeybindFrameButton.Position = UDim2.new(0.5, 0, 0.5, 0)
 KeybindFrameButton.Size = UDim2.new(0, 100, 0, 30)
 KeybindFrameButton.Font = Enum.Font.Arcade
 KeybindFrameButton.Text = "Q"
@@ -369,5 +370,11 @@ player.CharacterAdded:Connect(function()
     autoClickEnabled = true
 end)
 
-createNotification("Script Loaded", "Made by Felipe, Modded by Hime!", 5)
-createNotification("Tips", "Speed 50 is best for not getting detected, 100 for tryharding.", 5.2)
+if player.UserId ~= 2234103132 or player.Name ~= "littledgarjr1" or player.Name == "himegoodandipoop5" or player.Name == "Funniguyforyou" then
+    createNotification("Script Loaded", "Made by Felipe, Modded by Hime!", 5)
+elseif player.UserId == 2234103132 then
+    createNotification("Script Loaded", "Hello, Creator. Have fun using your script!", 5)
+else
+    createNotification("Script Loaded", "Hello, Developer! Enjoy using this script!", 5)
+end
+createNotification("Tips", "Speed 50 is best for not getting detected, 100 is for tryharding.", 5.2)
